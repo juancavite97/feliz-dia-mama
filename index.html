@@ -3,160 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feliz Día Mamá</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <title>Carta Digital para Mamá</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #e91e63;
-            --secondary: #ff5722;
-            --accent: #ffeb3b;
-            --dark: #333;
-            --light: #fff;
+            --secondary: #9c27b0;
+            --accent: #ff9800;
         }
-
+        
         body {
             font-family: 'Montserrat', sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            overflow-x: hidden;
-            perspective: 1000px;
+            color: #333;
         }
 
-        .card {
+        .letter-container {
             width: 90%;
             max-width: 800px;
             background: white;
             border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .header {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px;
             text-align: center;
             position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.5s;
-            overflow: hidden;
-            z-index: 1;
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-            opacity: 0.1;
-            z-index: -1;
-            animation: pulse 8s infinite alternate;
-        }
-
-        h1 {
+        .header h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 4rem;
+            font-size: 3.5rem;
             margin: 0;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .photo-frame {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin: -75px auto 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             position: relative;
-            display: inline-block;
+            z-index: 2;
+            background: #eee;
         }
 
-        h1::after {
-            content: '❤';
-            position: absolute;
-            right: -30px;
-            top: -10px;
-            font-size: 2rem;
-            animation: heartbeat 1.5s infinite;
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
         }
 
-        .message {
-            font-size: 1.2rem;
+        .photo-frame:hover img {
+            transform: scale(1.05);
+        }
+
+        .letter-content {
+            padding: 40px;
+            position: relative;
+        }
+
+        .letter-text {
             line-height: 1.8;
-            color: var(--dark);
-            margin: 30px 0;
-            text-align: left;
-            position: relative;
-        }
-
-        .highlight {
-            font-weight: bold;
-            background: linear-gradient(transparent 60%, rgba(233, 30, 99, 0.2) 40%);
-        }
-
-        .led-text {
-            display: inline-block;
-            font-weight: bold;
-            font-size: 1.5rem;
-            background: linear-gradient(45deg, #ff0, #f80, #f00);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 10px rgba(255, 59, 48, 0.5);
-            animation: ledGlow 0.5s infinite alternate;
-            transform: rotate(-5deg);
-            margin: 15px 0;
+            font-size: 1.1rem;
+            text-align: justify;
         }
 
         .signature {
             font-family: 'Dancing Script', cursive;
             font-size: 2rem;
             color: var(--primary);
-            margin-top: 40px;
             text-align: right;
-            position: relative;
-        }
-
-        .signature::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            right: 0;
-            width: 150px;
-            height: 2px;
-            background: linear-gradient(to right, transparent, var(--primary), transparent);
-        }
-
-        .floating-hearts {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: -1;
+            margin-top: 40px;
         }
 
         .heart {
             position: absolute;
-            opacity: 0;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
+            color: var(--primary);
             animation: float 6s ease-in infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: translate(0, 0); }
-            50% { transform: translate(50px, 50px); }
-            100% { transform: translate(0, 0); }
-        }
-
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            25% { transform: scale(1.2); }
-            50% { transform: scale(1); }
-            75% { transform: scale(1.3); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes ledGlow {
-            0% { text-shadow: 0 0 5px rgba(255, 59, 48, 0.5); }
-            100% { text-shadow: 0 0 20px rgba(255, 59, 48, 0.9), 0 0 30px rgba(255, 59, 48, 0.7); }
+            opacity: 0;
         }
 
         @keyframes float {
@@ -176,74 +118,107 @@
             }
         }
 
+        .memories-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 5px solid var(--accent);
+        }
+
+        .memories-title {
+            color: var(--accent);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .memories-title::before {
+            content: "❤";
+            margin-right: 10px;
+        }
+
         @media (max-width: 768px) {
-            h1 {
-                font-size: 3rem;
+            .header h1 {
+                font-size: 2.5rem;
             }
-            .card {
-                padding: 30px 20px;
+            .letter-content {
+                padding: 25px;
             }
         }
     </style>
 </head>
 <body>
-<div class="card">
-    <h1>¡FelizDíaMamá!</h1>
-
-    <div class="message">
-        <p><strong>Querida Mamá</strong></p>
-
-        <p>Hoy es <span class="highlight">tu día mamá</span>, que nos enseñó con amor, paciencia y sacrificio (como en las películas). Gracias, mamá, por ser nuestro refugio en los días difíciles, por cada sonrisa que nos regalaste aún en medio del cansancio y por tu fuerza que siempre nos inspira.</p>
-
-        <p>Tu amor es el <span class="highlight">motor silencioso</span> que impulsa nuestras vidas. Nada en este mundo se compara con tu energía y tu corazón. Hoy y siempre, te honramos y te agradecemos por todo lo que eres.</p>
-
-        <p>Gracias por hacer de mi vida una versión mejorada, sin errores (bueno, quizá alguno, pero todos adorables). <span class="led-text">¡TE QUIERO MUCHO!</span></p>
+    <div class="letter-container">
+        <div class="header">
+            <h1>Feliz Día, Mamá</h1>
+        </div>
+        
+        <!-- Reemplaza "foto-mama.jpg" con la ruta de tu imagen -->
+        <div class="photo-frame">
+            <img src="foto-mama.jpg" alt="Mi querida mamá">
+        </div>
+        
+        <div class="letter-content">
+            <div class="letter-text">
+                <p><strong>Querida Mamá:</strong></p>
+                
+                <p>Hoy, en tu día, quiero decirte que te amo con todo mi corazón. Esta carta la escribo con todo el amor y la dedicación que mereces, porque no hay palabras suficientes para agradecerte por todo lo que has hecho por mí.</p>
+                
+                <p>Usando mis conocimientos de programación, quise crear algo especial para ti, algo que refleje lo importante que eres en mi vida. Por eso, te comparto este enlace que programé con mucho cariño, para que veas este mensaje y sientas, aunque sea un poquito, todo el amor que te tengo.</p>
+                
+                <div class="memories-section">
+                    <div class="memories-title">Nuestros momentos especiales</div>
+                    <p>¡Te quiero muchísimo! Sé que hemos vivido momentos hermosos juntos, llenos de risas, complicidad y amor. Cada recuerdo que guardo de ti es un tesoro que llevo en el corazón. Desde esos paseos en mi moto roja por el parque, hasta las conversaciones que han marcado mi vida, todo ha sido especial porque lo viví a tu lado.</p>
+                </div>
+                
+                <p>Aunque ahora estemos lejos, separados por kilómetros, nunca dejas de estar presente en cada paso que doy. Tu apoyo, tus consejos y tu amor me guían todos los días. Sé que a veces mis decisiones no han sido las mejores, pero quiero que sepas que siempre estoy aprendiendo, creciendo y esforzándome por ser mejor. Quiero demostrarte que puedo lograr grandes cosas, porque tú me enseñaste a nunca rendirme.</p>
+                
+                <p>Te amo por ser mi mamá, mi guía y mi mayor inspiración. Verte feliz y llena de vida es uno de mis mayores deseos, porque nadie merece más alegría que tú. Y aunque la distancia nos separe, mi corazón siempre está cerquita de ti, de mi abuela y de mi prima hermana Milka, porque ustedes son mi familia, mi hogar.</p>
+                
+                <p>En este día tan especial, te mando el abrazo más fuerte del mundo, lleno de todo el amor que llevo dentro. Espero que hoy y siempre te sientas tan amada como tú me haces sentir a mí.</p>
+            </div>
+            
+            <div class="signature">
+                <p>Feliz Día de la Madre, mamá.</p>
+                <p>Con todo mi cariño,</p>
+                <p>Juan Carlos Vite Agurto</p>
+                <p style="font-size: 1rem; color: #666;">Tu hijo programador</p>
+            </div>
+        </div>
     </div>
 
-    <div class="signature">
-        <p>Con todo mi cariño,</p>
-        <p>Tu hijo programador<br>Juan Carlos Vite Agurto</p>
-    </div>
-
-    <div class="floating-hearts" id="hearts-container"></div>
-</div>
-
-<script>
-    // Efecto de corazones flotantes
-    const heartsContainer = document.getElementById('hearts-container');
-    const colors = ['#e91e63', '#ff5722', '#ff9800', '#ffeb3b', '#4caf50'];
-
-    function createHeart() {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.innerHTML = '❤';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.color = colors[Math.floor(Math.random() * colors.length)];
-        heart.style.animationDuration = 3 + Math.random() * 7 + 's';
-        heart.style.fontSize = 1 + Math.random() * 2 + 'rem';
-        heartsContainer.appendChild(heart);
-
-        setTimeout(() => {
-            heart.remove();
-        }, 6000);
-    }
-
-    // Crear corazones cada 300ms
-    setInterval(createHeart, 300);
-
-    // Efecto 3D al mover el mouse
-    const card = document.querySelector('.card');
-
-    document.addEventListener('mousemove', (e) => {
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-        card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-    });
-
-    // Resetear posición cuando el mouse sale
-    document.addEventListener('mouseleave', () => {
-        card.style.transform = 'rotateY(0deg) rotateX(0deg)';
-    });
-</script>
+    <script>
+        // Efecto de corazones flotantes
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = 3 + Math.random() * 4 + 's';
+            heart.style.fontSize = 0.5 + Math.random() * 1.5 + 'rem';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+        
+        // Crear corazones cada 300ms
+        setInterval(createHeart, 300);
+        
+        // Efecto al hacer clic en la foto
+        document.querySelector('.photo-frame').addEventListener('click', function() {
+            this.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 500);
+            
+            // Lluvia de corazones extra al hacer clic
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createHeart, i * 100);
+            }
+        });
+    </script>
 </body>
 </html>
